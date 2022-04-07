@@ -14,8 +14,3 @@ jobs:
 
     - name: Limit complexity
       run: $HOME/.local/bin/lizard --CCN 3
-
-    © 2022 GitHub, Inc.
-
-    Terms
-    P
