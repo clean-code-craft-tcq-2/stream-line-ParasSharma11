@@ -4,14 +4,14 @@ package Sender;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 
 public class TestSender {
 	@Test
 	public void testsimulateData() {
 		List<Float> Sensor1Data = SensorSimulatorUtil.simulateData(0, 40);
-		assertTrue(50, Sensor1Data.size());
+		assertEquals(50, Sensor1Data.size());
 	}
 	
 	@Test 
@@ -19,7 +19,7 @@ public class TestSender {
 		List<Float> Sensor1Data = SensorSimulatorUtil.simulateData(0, 40);
 		List<Float> Sensor2Data = SensorSimulatorUtil.simulateData(0, 40);
 		String errmsg = SensorSimulatorUtil.printSensorDataToConsoleOutput(Sensor1Data, Sensor2Data);
-		assertTrue(errmsg, "DATA TRANSFER SUCCESSFULLY");
+		assertEquals(errmsg, "DATA TRANSFER SUCCESSFULLY");
 	}
 
 }
