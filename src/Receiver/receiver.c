@@ -1,16 +1,15 @@
 #include "receiver.h"
 #include "sender.h"
 
+float temperature_s1[50];
+float temperature_s2[50];
 
-Status_t GetFromConsole()
+Status_t GetFromConsole() //collect all data
 {
-    for(int i = 0; i <NOOFDATA; i++)
-    {
-          Temp[i] = Temperature[i];
-          SOC[i] = StateOfCharge[i];
-          sensorsID[i] =  (float)sensorID[i];
-         
-    }
+	for(int i = 0; i <NOOFDATA; i++)
+	{
+		scanf("%f , %f", temperature_s1[i], temperature_s2[i]);
+	}
     return E_OK;
 }
 
@@ -53,7 +52,7 @@ int	startIndex = noOfElements - NO_OF_CONSECUTIVE_AVERAGE ;
 
 void printOnConsole(float* Max ,float* Min, float* Ave)
 {
-	for(int i = 0; i<3; i++)
+	for(int i = 0; i<2; i++)
     {
 		 printf("%f,%f,%f\n", Max[i], Min[i], Ave[i]);
 	}
@@ -62,18 +61,13 @@ void receiverMainFunction(void (*fpPrintOnConsole)(float* ,float*, float*))
 {
     
     	float Max[3], Min[3] ,Ave[3];
-
 	Status_t status = GetFromConsole();
-
-	 Max[0] = findMaxValue( Temp,9);
-     Min[0] = findMinValue( Temp,9);
-     Ave[0] = aveOfLastConsecutiveValues(Temp,9);
-	 Max[1] = findMaxValue( SOC,9);
-     Min[1] = findMinValue( SOC,9);
-     Ave[1] = aveOfLastConsecutiveValues(SOC,9);	
-	 Max[2] = findMaxValue( sensorsID,9);
-     Min[2] = findMinValue( sensorsID,9);
-     Ave[2] = aveOfLastConsecutiveValues(sensorsID,9);
+	Max[0] = findMaxValue( temperature_s1, NOOFDATA);
+      	Min[0] = findMinValue( temperature_s1, NOOFDATA);
+     	Ave[0] = aveOfLastConsecutiveValues(temperature_s1, NOOFDATA);
+	Max[1] = findMaxValue( temperature_s2, NOOFDATA);
+      	Min[1] = findMinValue( temperature_s2, NOOFDATA);
+     	Ave[1] = aveOfLastConsecutiveValues(temperature_s2, NOOFDATA);
       
 	 fpPrintOnConsole(Max,Min,Ave);
 }
